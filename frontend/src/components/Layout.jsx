@@ -3,6 +3,7 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { BookOpen, Clock3, Gamepad2, Home, Moon, Sun, Trophy } from "lucide-react";
 import { api } from "../services/api";
 import { useTheme } from "../context/ThemeContext";
+import Footer from "./Footer";
 
 const navigation = [
   { to: "/home", label: "Home", icon: Home, end: true },
@@ -182,10 +183,7 @@ export default function Layout() {
         <div className="content-container">
           <Outlet />
         </div>
-        <footer className="footer">
-          <div className="footer-left">Cardly – Card Game Tracker</div>
-          <div className="footer-right">Built for your next great game.</div>
-        </footer>
+        <Footer />
       </main>
 
       {/* Mobile Bottom Navigation Bar */}

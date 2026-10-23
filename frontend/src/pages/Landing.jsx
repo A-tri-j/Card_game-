@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { api } from "../services/api";
+import Footer from "../components/Footer";
 import "../landing.css";
 
 function CardlyBrandLogo() {
@@ -318,10 +319,8 @@ export default function Landing() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="landing-footer">
-        <span>Cardly · Game Tracker</span>
-      </footer>
+      {/* Luxury Footer */}
+      <Footer isLanding />
     </div>
   );
 }
