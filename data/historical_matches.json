@@ -1,0 +1,32 @@
+{
+  "matches": [
+    {
+      "import_key": "H001",
+      "played_on": "2025-01-12",
+      "created_by": "Atrij",
+      "players": ["Atrij", "Ankit", "Kiron", "Tiyas"],
+      "rounds": [
+        [
+          { "call": 3, "tricks": 4 },
+          { "call": 2, "tricks": 2 },
+          { "call": 4, "tricks": 3 },
+          { "call": 5, "tricks": 4 }
+        ],
+        [
+          { "call": 2, "tricks": 2 },
+          { "call": 3, "tricks": 5 },
+          { "call": 4, "tricks": 4 },
+          { "call": 2.5, "tricks": 1 }
+        ]
+      ]
+    },
+    {
+      "import_key": "H002",
+      "played_on": "2025-01-20",
+      "created_by": "Atrij",
+      "players": ["Atrij", "Ankit", "Kiron", "Tiyas"],
+      "total_rounds": 5,
+      "final_scores": [14.2, 9.5, -3, 11]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+:root {
+  /* Dark Theme Tokens (Default) */
+  --bg: #0c0e17;
+  --bg-sidebar: #080a10;
+  --bg-card: #131622;
+  --bg-card-hover: #191c2c;
+  --bg-elevated: #171b29;
+  --bg-input: #0a0c14;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-focus: rgba(229, 176, 72, 0.45);
+  --border-gold: rgba(229, 176, 72, 0.38);
+  
+  --text: #f3f4f8;
+  --text-muted: #7e879a;
+  --text-dim: #4d5568;
+
+  --accent-gold: #e5b048;
+  --accent-gold-bg: rgba(229, 176, 72, 0.12);
+  --accent-gold-glow: rgba(229, 176, 72, 0.22);
+  
+  --accent-purple: #7950f2;
+  --accent-purple-hover: #693be8;
+  --accent-purple-bg: rgba(121, 80, 242, 0.14);
+
+  --badge-green-bg: rgba(16, 185, 129, 0.14);
+  --badge-green-text: #34d399;
+  --badge-green-border: rgba(16, 185, 129, 0.28);
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --heading: var(--font-serif);
+  --sans: var(--font-sans);
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  /* Light Theme Tokens (Warm Ivory & Champagne Luxury) */
+  --bg: #fcfbfa;
+  --bg-sidebar: #f5f1e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf7f2;
+  --bg-elevated: #f4efe4;
+  --bg-input: #ffffff;
+  --border: rgba(40, 32, 20, 0.1);
+  --border-subtle: rgba(40, 32, 20, 0.06);
+  --border-focus: rgba(184, 134, 11, 0.5);
+  --border-gold: rgba(184, 134, 11, 0.4);
+
+  --text: #191c24;
+  --text-muted: #5e6676;
+  --text-dim: #9aa1b0;
+
+  --accent-gold: #b37e0c;
+  --accent-gold-bg: rgba(179, 126, 12, 0.12);
+  --accent-gold-glow: rgba(179, 126, 12, 0.2);
+
+  --accent-purple: #6741d9;
+  --accent-purple-hover: #5633c7;
+  --accent-purple-bg: rgba(103, 65, 217, 0.12);
+
+  --badge-green-bg: rgba(16, 185, 129, 0.12);
+  --badge-green-text: #059669;
+  --badge-green-border: rgba(16, 185, 129, 0.28);
+
+  --shadow-sm: 0 2px 8px rgba(35, 25, 10, 0.04);
+  --shadow-card: 0 4px 18px rgba(35, 25, 10, 0.06);
+
+  color-scheme: light;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font-family: inherit;
+}
