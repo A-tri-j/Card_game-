@@ -1,20 +1,209 @@
-.header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.header-actions .secondary-button { margin-top: 0; }
+/* ==========================================================================
+   29 GAME DASHBOARD & SYSTEM (LUXURY THEMED)
+   ========================================================================== */
+.t29-dashboard-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-bottom: 18px; }
-.t29-cards {
+.header-actions-luxury {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.secondary-button-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.secondary-button-pill:hover {
+  border-color: var(--border-gold);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* KPI Grid */
+.t29-kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 13px;
-  margin: 18px 0 22px;
+  gap: 14px;
 }
-.t29-cards .stat-card {
+
+.t29-kpi-card {
   padding: 16px 18px;
 }
-.t29-cards .stat-card > strong {
-  font-size: 26px;
-  margin: 8px 0 3px;
+
+.t29-kpi-card.highlight-gold {
+  border-color: var(--border-gold);
+  box-shadow: 0 0 0 1px var(--gold-bg), var(--shadow-sm);
 }
+
+/* Live Ongoing Matches Banner */
+.t29-live-banner {
+  border-color: rgba(121, 80, 242, 0.3);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+}
+
+.live-badge {
+  color: #a78bfa;
+}
+
+.pulse-icon {
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.t29-live-matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.t29-live-match-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  gap: 16px;
+  flex-wrap: wrap;
+  transition: all 0.18s ease;
+}
+
+.t29-live-match-row:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-1px);
+}
+
+.live-match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.live-match-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-match-title-row .room-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.live-match-title-row .creator-tag {
+  font-size: 11.5px;
+  color: var(--text-dim);
+}
+
+.live-match-scores-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.team-score-tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.team-score-tag.home {
+  color: var(--blue-text);
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-border);
+}
+
+.team-score-tag.away {
+  color: var(--red-text);
+  background: var(--red-bg);
+  border: 1px solid var(--red-border);
+}
+
+.vs-divider {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.resume-match-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #7950f2, #6741d9);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(121, 80, 242, 0.3);
+  transition: all 0.18s ease;
+}
+
+.resume-match-pill-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(121, 80, 242, 0.45);
+}
+
+/* Stats Table Enhancements */
+.t29-stats-panel {
+  padding: 24px 28px;
+}
+
+.table-player-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rank-num {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--accent-purple);
+  min-width: 20px;
+}
+
+.win-rate-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.win-rate-pill.high {
+  color: var(--badge-green-text);
+  background: var(--badge-green-bg);
+  border: 1px solid var(--badge-green-border);
+}
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-bottom: 18px; }
 
 .rule-note {
   background: var(--bg-card);
@@ -96,4 +285,90 @@
   .vs { text-align: center; }
   .team-preview, .grid-3 { grid-template-columns: 1fr; }
   .setup-row { grid-template-columns: 1fr; }
+
+  /* Mobile compact small-box card styling for 29 Dashboard */
+  .t29-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .t29-kpi-card {
+    padding: 11px 12px;
+    border-radius: 12px;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .t29-kpi-card .kpi-top {
+    margin-bottom: 6px;
+  }
+
+  .t29-kpi-card .kpi-icon-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .t29-kpi-card .kpi-icon-badge svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .t29-kpi-card .kpi-label {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .t29-kpi-card .kpi-value {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .t29-kpi-card .kpi-sub {
+    font-size: 9.5px;
+    margin-top: 3px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Make Best Team card span full width on mobile so team names are fully visible */
+  .t29-kpi-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .t29-kpi-card:last-child .kpi-value,
+  .t29-kpi-card:last-child .kpi-sub {
+    white-space: normal;
+  }
+
+  .t29-live-match-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .resume-match-pill-btn {
+    justify-content: center;
+    width: 100%;
+    padding: 8px 14px;
+  }
+
+  .t29-stats-panel {
+    padding: 16px 12px;
+  }
+
+  .header-actions-luxury {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

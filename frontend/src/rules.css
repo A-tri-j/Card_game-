@@ -1,0 +1,764 @@
+/* ==========================================================================
+   CARDLY LUXURY RULES & GUIDE STYLESHEET
+   Ultra-Premium Casino Playing Cards, Dual Language & Hardcore Game Engine
+   ========================================================================== */
+
+.rules-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+/* Header & Language Switcher Bar */
+.rules-header-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.rules-header-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+.rules-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rules-header-title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rules-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--accent-gold);
+  background: var(--accent-gold-bg);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 0 10px var(--accent-gold-glow);
+}
+
+.rules-header-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Language Toggle Switch (be / eg) */
+.lang-toggle-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 4px;
+  gap: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-btn:hover {
+  color: var(--text);
+}
+
+.lang-btn.active {
+  background: linear-gradient(135deg, #fef3c7 0%, #f59e0b 60%, #b45309 100%);
+  color: #0d1017;
+  font-weight: 800;
+  box-shadow: 0 2px 10px rgba(229, 176, 72, 0.4);
+}
+
+/* Game Switcher Tabs */
+.rules-nav-tabs {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+}
+
+.rules-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: 14px 14px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rules-tab-btn:hover {
+  color: var(--text);
+  background: var(--bg-card-hover);
+}
+
+.rules-tab-btn.active {
+  background: var(--bg-card);
+  border-color: var(--border);
+  border-bottom: 3px solid var(--accent-gold);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tab-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.tab-icon-purple {
+  background: var(--accent-purple-bg);
+  color: #c4b5fd;
+  box-shadow: 0 0 10px rgba(121, 80, 242, 0.25);
+}
+
+.tab-icon-green {
+  background: var(--badge-green-bg);
+  color: var(--badge-green-text);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+}
+
+/* Rules Section Layout */
+.rules-section-box {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Clean Rule Box Card */
+.rule-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.rule-card:hover {
+  border-color: var(--border-gold);
+}
+
+.rule-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.rule-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.rule-card-icon {
+  color: var(--accent-gold);
+}
+
+.rule-card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--accent-gold-bg);
+  color: var(--accent-gold);
+  border: 1px solid var(--border-gold);
+}
+
+/* ==========================================================================
+   ULTRA-PREMIUM CASINO PLAYING CARDS SHOWCASE
+   Realistic Poker Card Physics, Guilloché Borders, Corner Indices & Halos
+   ========================================================================== */
+
+.cards-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Authentic Luxury Playing Card */
+.premium-playing-card {
+  position: relative;
+  background: linear-gradient(150deg, #181d2c 0%, #0d1017 100%);
+  border: 1px solid rgba(229, 176, 72, 0.35);
+  border-radius: 12px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+  box-shadow: 
+    0 10px 25px -4px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 0 0 1px rgba(229, 176, 72, 0.15);
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  user-select: none;
+}
+
+[data-theme="light"] .premium-playing-card {
+  background: linear-gradient(150deg, #ffffff 0%, #f6f2ea 100%);
+  border: 1px solid rgba(180, 130, 20, 0.35);
+  box-shadow: 
+    0 8px 22px -4px rgba(60, 45, 20, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(180, 130, 20, 0.12);
+}
+
+/* Luxury Card Inner Guilloché Border */
+.premium-playing-card::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 1px solid rgba(229, 176, 72, 0.22);
+  border-radius: 8px;
+  pointer-events: none;
+  transition: border-color 0.25s ease;
+}
+
+[data-theme="light"] .premium-playing-card::after {
+  border-color: rgba(180, 130, 20, 0.2);
+}
+
+/* Card 3D Lift on Hover */
+.premium-playing-card:hover {
+  transform: translateY(-8px) scale(1.025);
+  border-color: var(--accent-gold);
+  box-shadow: 
+    0 18px 38px -6px rgba(0, 0, 0, 0.7),
+    0 0 24px var(--accent-gold-glow),
+    inset 0 0 0 1px rgba(229, 176, 72, 0.4);
+}
+
+.premium-playing-card:hover::after {
+  border-color: rgba(229, 176, 72, 0.5);
+}
+
+/* Special High Honor / Trump Glow */
+.premium-playing-card.card-featured {
+  border-color: var(--accent-gold);
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.6),
+    0 0 16px var(--accent-gold-glow),
+    inset 0 0 0 1px rgba(229, 176, 72, 0.3);
+}
+
+.premium-playing-card.card-trump-special {
+  border-color: #a78bfa;
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(121, 80, 242, 0.35),
+    inset 0 0 0 1px rgba(167, 139, 250, 0.3);
+}
+
+.premium-playing-card.card-trump-special::after {
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+/* Watermark Suit in Background */
+.card-watermark-suit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 85px;
+  line-height: 1;
+  opacity: 0.05;
+  pointer-events: none;
+  font-weight: 900;
+  transition: opacity 0.25s ease;
+}
+
+.premium-playing-card:hover .card-watermark-suit {
+  opacity: 0.09;
+}
+
+/* Dual Corner Indices (Top-Left & Bottom-Right) */
+.card-corner-index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  gap: 2px;
+  font-weight: 800;
+  z-index: 2;
+}
+
+.card-corner-index.top-left {
+  align-self: flex-start;
+}
+
+.card-corner-index.bottom-right {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.corner-rank {
+  font-size: 17px;
+  font-family: var(--font-serif);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.corner-suit {
+  font-size: 13px;
+}
+
+/* Center Card Art & Insignia */
+.card-center-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+  z-index: 2;
+  position: relative;
+}
+
+.card-center-suit {
+  font-size: 38px;
+  line-height: 1;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+}
+
+.card-center-badge-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* Suit Color Palettes */
+.suit-crimson {
+  color: #ef4444;
+  filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.3));
+}
+
+.suit-gold {
+  color: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
+}
+
+.suit-black {
+  color: #f3f4f8;
+  filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.15));
+}
+
+[data-theme="light"] .suit-black {
+  color: #1a202c;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+/* Metallic Embossed Point Pill */
+.card-point-pill {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fef3c7 0%, #f59e0b 60%, #b45309 100%);
+  color: #0c0e17;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.4);
+  z-index: 2;
+  margin-top: 6px;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-point-pill.zero-pts {
+  background: var(--bg-input);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.card-point-pill.token-pts {
+  background: linear-gradient(135deg, #e0e7ff 0%, #818cf8 60%, #4f46e5 100%);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.4);
+}
+
+.card-caption-label {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 4px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   MINI POKER CARDS HIERARCHY TRACK
+   Realistic Mini Cards with Corner Indices & Center Suits
+   ========================================================================== */
+
+.hierarchy-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 4px 14px;
+  scrollbar-width: thin;
+}
+
+.hierarchy-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.hierarchy-card-mini {
+  width: 48px;
+  height: 68px;
+  background: linear-gradient(145deg, #181d2c 0%, #0e111a 100%);
+  border: 1px solid rgba(229, 176, 72, 0.35);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  position: relative;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+[data-theme="light"] .hierarchy-card-mini {
+  background: linear-gradient(145deg, #ffffff 0%, #f6f2ea 100%);
+  border-color: rgba(180, 130, 20, 0.35);
+  box-shadow: 0 3px 10px rgba(50, 40, 20, 0.08);
+}
+
+.hierarchy-card-mini:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 18px var(--accent-gold-glow);
+}
+
+.mini-rank-top {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mini-suit-center {
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
+}
+
+.mini-pts-bottom {
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent-gold);
+  background: var(--accent-gold-bg);
+  border-radius: 4px;
+  padding: 1px 2px;
+  letter-spacing: -0.2px;
+}
+
+.hierarchy-arrow {
+  color: var(--text-dim);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   SCORING TABLES & CALLOUT BOXES
+   ========================================================================== */
+
+.rules-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13.5px;
+}
+
+.rules-table th {
+  background: var(--bg-elevated);
+  padding: 14px 18px;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+  font-size: 11.5px;
+  letter-spacing: 0.7px;
+}
+
+.rules-table td {
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text);
+}
+
+.rules-table tr:last-child td {
+  border-bottom: none;
+}
+
+.rules-table tr:hover td {
+  background: var(--bg-card-hover);
+}
+
+.score-badge-pos {
+  display: inline-block;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--badge-green-bg);
+  color: var(--badge-green-text);
+  border: 1px solid var(--badge-green-border);
+}
+
+.score-badge-neg {
+  display: inline-block;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.14);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
+/* Callout Box / Golden Note */
+.rules-callout {
+  display: flex;
+  gap: 14px;
+  background: var(--accent-gold-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  align-items: flex-start;
+  box-shadow: 0 2px 10px var(--accent-gold-glow);
+}
+
+.rules-callout-icon {
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.rules-callout-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.rules-callout-content strong {
+  color: var(--accent-gold);
+  font-size: 14px;
+}
+
+/* Examples Grid */
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.example-box {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.example-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.example-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Sidebar Rules Card Component */
+.sidebar-rules-section {
+  margin: 12px 0 16px;
+}
+
+.sidebar-rules-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: border-color 0.2s ease;
+}
+
+.sidebar-rules-card:hover {
+  border-color: var(--border-gold);
+}
+
+.sidebar-rules-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.sidebar-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all 0.16s ease;
+}
+
+.sidebar-sub-item:hover {
+  background: var(--bg-card-hover);
+  color: var(--text);
+}
+
+.sidebar-sub-item.active {
+  background: var(--accent-gold-bg);
+  border-color: var(--border-gold);
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.sidebar-sub-badge {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .rules-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 20px;
+  }
+
+  .lang-toggle-wrap {
+    align-self: flex-start;
+  }
+
+  .cards-showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rules-tab-btn {
+    padding: 10px 16px;
+    font-size: 13.5px;
+  }
+}

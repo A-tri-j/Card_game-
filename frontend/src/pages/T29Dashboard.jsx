@@ -1,15 +1,36 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Award,
+  Ban,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Crown,
+  Flame,
+  Gamepad2,
+  History,
+  Layers,
+  Plus,
+  Radio,
+  Trophy,
+  Users,
+} from "lucide-react";
 import PageHeader from "../components/PageHeader";
 import { api } from "../services/api";
 import { rateText } from "../utils/t29";
 
-function Card({ label, value, note }) {
+function T29KpiCard({ icon: Icon, badgeColor, label, value, note, highlight = false }) {
   return (
-    <article className="stat-card">
-      <span className="stat-label">{label}</span>
-      <strong>{value}</strong>
-      <small>{note}</small>
+    <article className={`kpi-card t29-kpi-card ${highlight ? "highlight-gold" : ""}`}>
+      <div className="kpi-top">
+        <span className={`kpi-icon-badge ${badgeColor}`}>
+          <Icon size={18} />
+        </span>
+      </div>
+      <span className="kpi-label">{label}</span>
+      <strong className="kpi-value">{value ?? "—"}</strong>
+      <small className="kpi-sub">{note}</small>
     </article>
   );
 }
@@ -17,10 +38,11 @@ function Card({ label, value, note }) {
 function StatsTable({ rows, nameLabel }) {
   if (rows.length === 0) {
     return (
-      <section className="panel placeholder-panel" style={{ marginTop: 14 }}>
-        <h2>No completed matches yet</h2>
+      <div className="empty-state">
+        <div className="empty-state-graphic">♠ ♦</div>
+        <strong>No completed matches yet</strong>
         <p>Rankings for {nameLabel.toLowerCase()}s will appear here once 29 matches finish.</p>
-      </section>
+      </div>
     );
   }
   return (
@@ -28,16 +50,37 @@ function StatsTable({ rows, nameLabel }) {
       <table className="score-table lb-table">
         <thead>
           <tr>
-            <th className="left">{nameLabel}</th><th>Matches</th><th>Wins</th><th>Losses</th><th>Draws</th><th>Win rate</th>
-            <th>Sets W/L</th><th>Calls ✓/✗</th><th>Double</th><th>Redouble</th><th>Single hand</th>
+            <th className="left">{nameLabel}</th>
+            <th>Matches</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Draws</th>
+            <th>Win rate</th>
+            <th>Sets W/L</th>
+            <th>Calls ✓/✗</th>
+            <th>Double</th>
+            <th>Redouble</th>
+            <th>Single hand</th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((r) => (
+          {rows.map((r, i) => (
             <tr key={r.name}>
-              <td className="left"><strong>{r.name}</strong></td>
-              <td>{r.matches}</td><td>{r.wins}</td><td>{r.losses}</td><td>{r.draws}</td>
-              <td>{rateText(r.win_rate)}</td>
+              <td className="left">
+                <div className="table-player-cell">
+                  <span className="rank-num">#{i + 1}</span>
+                  <strong>{r.name}</strong>
+                </div>
+              </td>
+              <td>{r.matches}</td>
+              <td><span className="pos-badge pos-1">{r.wins}</span></td>
+              <td>{r.losses}</td>
+              <td>{r.draws}</td>
+              <td>
+                <span className={`win-rate-pill ${parseFloat(r.win_rate) >= 50 ? "high" : ""}`}>
+                  {rateText(r.win_rate)}
+                </span>
+              </td>
               <td>{r.sets_won}/{r.sets_lost}</td>
               <td>{r.calls_successful}/{r.calls_failed}</td>
               <td>{r.doubled_successful}/{r.doubled_calls}</td>
@@ -74,100 +117,212 @@ export default function T29Dashboard() {
 
   const s = data?.summary;
   const best = (b) => (b ? `${b.name}` : "—");
-  const bestNote = (b) => (b ? `${rateText(b.win_rate)} · ${b.wins}/${b.matches} matches` : "Needs a decided match");
+  const bestNote = (b) =>
+    b ? `${rateText(b.win_rate)} · ${b.wins}/${b.matches} matches` : "Needs a decided match";
 
   return (
-    <>
-      <PageHeader eyebrow="29 GAME" title="29 Dashboard">
-        <div className="header-actions">
-          <Link className="secondary-button" to="/games/29/history">Match history</Link>
-          <Link className="primary-button" to="/games/29/new">New match</Link>
+    <div className="t29-dashboard-wrap">
+      {/* Page Header */}
+      <div className="page-header-row">
+        <PageHeader eyebrow="29 GAME HUB" title="29 Dashboard" />
+        <div className="header-actions-luxury">
+          <Link to="/games/29/history" className="secondary-button-pill">
+            <History size={14} /> History
+          </Link>
+          <Link to="/games/29/new" className="action-button-purple">
+            <Plus size={15} /> New match
+          </Link>
         </div>
-      </PageHeader>
+      </div>
 
       {error && <p className="error-text">{error}</p>}
       {!data && !error && <div className="skeleton tall" />}
 
       {data && (
         <>
-          <section className="stat-grid t29-cards">
-            <Card label="Total matches" value={s.total_matches} note={`${s.in_progress_matches} in progress`} />
-            <Card label="Completed" value={s.completed_matches} note={`incl. ${s.drawn_matches} draws and manual ends`} />
-            <Card label="Cancelled" value={s.cancelled_matches} note="Not counted in win rates" />
-            <Card label="Sets played" value={s.total_sets} note="All completed sets" />
-            <Card label="Player wins" value={s.total_player_wins} note="One per player per won match" />
-            <Card label="Best player" value={best(s.best_player)} note={bestNote(s.best_player)} />
-            <Card label="Best team" value={best(s.best_team)} note={bestNote(s.best_team)} />
+          {/* KPI Metrics Grid */}
+          <section className="t29-kpi-grid">
+            <T29KpiCard
+              icon={Gamepad2}
+              badgeColor="purple"
+              label="TOTAL MATCHES"
+              value={s.total_matches}
+              note={`${s.in_progress_matches} in progress`}
+            />
+            <T29KpiCard
+              icon={CheckCircle2}
+              badgeColor="green"
+              label="COMPLETED"
+              value={s.completed_matches}
+              note={`incl. ${s.drawn_matches} draws`}
+            />
+            <T29KpiCard
+              icon={Ban}
+              badgeColor="red"
+              label="CANCELLED"
+              value={s.cancelled_matches}
+              note="Excluded from rates"
+            />
+            <T29KpiCard
+              icon={Layers}
+              badgeColor="blue"
+              label="SETS PLAYED"
+              value={s.total_sets}
+              note="All completed sets"
+            />
+            <T29KpiCard
+              icon={Award}
+              badgeColor="purple"
+              label="PLAYER WINS"
+              value={s.total_player_wins}
+              note="Total player victories"
+            />
+            <T29KpiCard
+              icon={Crown}
+              badgeColor="gold"
+              label="BEST PLAYER"
+              value={best(s.best_player)}
+              note={bestNote(s.best_player)}
+              highlight={Boolean(s.best_player)}
+            />
+            <T29KpiCard
+              icon={Users}
+              badgeColor="gold"
+              label="BEST TEAM"
+              value={best(s.best_team)}
+              note={bestNote(s.best_team)}
+              highlight={Boolean(s.best_team)}
+            />
           </section>
 
+          {/* Ongoing Live Matches Banner */}
           {activeMatches.length > 0 && (
-            <article className="panel" style={{ marginTop: 8, marginBottom: 18, border: "1px solid #4a3d6b", background: "linear-gradient(150deg, #18152e, #10121f)" }}>
-              <div className="panel-heading" style={{ marginBottom: 12 }}>
+            <section className="content-card t29-live-banner">
+              <div className="card-header">
                 <div>
-                  <span className="eyebrow" style={{ color: "#a78bfa" }}>LIVE NOW</span>
-                  <h3 style={{ margin: "2px 0 0" }}>Ongoing matches ({activeMatches.length})</h3>
+                  <span className="eyebrow-badge live-badge">
+                    <Radio size={13} className="eyebrow-icon pulse-icon" />
+                    LIVE NOW
+                  </span>
+                  <h3 className="card-title">Ongoing matches ({activeMatches.length})</h3>
                 </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+
+              <div className="t29-live-matches-list">
                 {activeMatches.map((m) => (
-                  <div key={m.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "#0c0e18", borderRadius: 10, border: "1px solid var(--border)", flexWrap: "wrap", gap: 12 }}>
-                    <div>
-                      <strong style={{ fontSize: 15, color: "#fff" }}>{m.room_name}</strong>
-                      <span className="muted-note" style={{ marginLeft: 10 }}>#{m.id} · by {m.created_by}</span>
-                      <div style={{ fontSize: 13, marginTop: 4 }}>
-                        <span style={{ color: "#93c5fd", fontWeight: 600 }}>{m.home.label || "Pending setup"} ({m.home.score})</span>
-                        <span style={{ margin: "0 8px", color: "var(--muted)" }}>vs</span>
-                        <span style={{ color: "#fda4af", fontWeight: 600 }}>{m.away.label || "Pending setup"} ({m.away.score})</span>
+                  <div key={m.id} className="t29-live-match-row">
+                    <div className="live-match-info">
+                      <div className="live-match-title-row">
+                        <span className="match-id">#{m.id}</span>
+                        <strong className="room-name">{m.room_name}</strong>
+                        <span className="creator-tag">by {m.created_by}</span>
+                      </div>
+                      <div className="live-match-scores-row">
+                        <span className="team-score-tag home">
+                          {m.home.label || "Team Home"} <strong>({m.home.score})</strong>
+                        </span>
+                        <span className="vs-divider">vs</span>
+                        <span className="team-score-tag away">
+                          {m.away.label || "Team Away"} <strong>({m.away.score})</strong>
+                        </span>
                       </div>
                     </div>
-                    <Link to={`/games/29/${m.id}`} className="primary-button" style={{ padding: "8px 18px", fontSize: 13 }}>
-                      Resume Match →
+                    <Link to={`/games/29/${m.id}`} className="resume-match-pill-btn">
+                      Resume Match <ChevronRight size={15} />
                     </Link>
                   </div>
                 ))}
               </div>
-            </article>
+            </section>
           )}
 
-          <div className="filter-bar" style={{ marginTop: 22 }}>
-            {[["players", "Players"], ["teams", "Teams"], ["h2h", "Head-to-head"]].map(([key, text]) => (
-              <button key={key} className={`chip ${tab === key ? "active" : ""}`} onClick={() => setTab(key)}>{text}</button>
-            ))}
-          </div>
-
-          {tab === "players" && <StatsTable rows={data.players} nameLabel="Player" />}
-          {tab === "teams" && <StatsTable rows={data.teams} nameLabel="Team" />}
-          {tab === "h2h" &&
-            (data.h2h.length === 0 ? (
-              <section className="panel placeholder-panel" style={{ marginTop: 14 }}>
-                <h2>No head-to-head records yet</h2>
-                <p>Head-to-head records between team pairs will appear here once 29 matches finish.</p>
-              </section>
-            ) : (
-              <div className="score-wrap">
-                <table className="score-table lb-table">
-                  <thead>
-                    <tr><th className="left">Team A</th><th className="left">Team B</th><th>Matches</th><th>A wins</th><th>B wins</th><th>Draws</th><th>A win %</th><th>B win %</th></tr>
-                  </thead>
-                  <tbody>
-                    {data.h2h.map((r) => (
-                      <tr key={`${r.team_a}|${r.team_b}`}>
-                        <td className="left"><strong>{r.team_a}</strong></td>
-                        <td className="left"><strong>{r.team_b}</strong></td>
-                        <td>{r.matches}</td><td>{r.team_a_wins}</td><td>{r.team_b_wins}</td><td>{r.draws}</td>
-                        <td>{rateText(r.team_a_win_rate)}</td><td>{rateText(r.team_b_win_rate)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {/* Leaderboard & Stats Table Card */}
+          <section className="content-card t29-stats-panel">
+            <div className="card-header">
+              <div>
+                <span className="eyebrow-badge">
+                  <Trophy size={13} className="eyebrow-icon" />
+                  LEADERBOARD & RECORDS
+                </span>
+                <h3 className="card-title">Statistics</h3>
               </div>
-            ))}
 
+              {/* Luxury Tabs */}
+              <div className="filter-chips-row" role="tablist">
+                {[
+                  ["players", "Players"],
+                  ["teams", "Teams"],
+                  ["h2h", "Head-to-head"],
+                ].map(([key, text]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    className={`filter-pill-chip ${tab === key ? "active" : ""}`}
+                    onClick={() => setTab(key)}
+                  >
+                    {text}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {tab === "players" && <StatsTable rows={data.players} nameLabel="Player" />}
+            {tab === "teams" && <StatsTable rows={data.teams} nameLabel="Team" />}
+            {tab === "h2h" &&
+              (data.h2h.length === 0 ? (
+                <div className="empty-state">
+                  <div className="empty-state-graphic">♠ ♦</div>
+                  <strong>No head-to-head records yet</strong>
+                  <p>Head-to-head records between team pairs will appear here once 29 matches finish.</p>
+                </div>
+              ) : (
+                <div className="score-wrap">
+                  <table className="score-table lb-table">
+                    <thead>
+                      <tr>
+                        <th className="left">Team A</th>
+                        <th className="left">Team B</th>
+                        <th>Matches</th>
+                        <th>A wins</th>
+                        <th>B wins</th>
+                        <th>Draws</th>
+                        <th>A win %</th>
+                        <th>B win %</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.h2h.map((r) => (
+                        <tr key={`${r.team_a}|${r.team_b}`}>
+                          <td className="left"><strong>{r.team_a}</strong></td>
+                          <td className="left"><strong>{r.team_b}</strong></td>
+                          <td>{r.matches}</td>
+                          <td><span className="pos-badge pos-1">{r.team_a_wins}</span></td>
+                          <td><span className="pos-badge pos-1">{r.team_b_wins}</span></td>
+                          <td>{r.draws}</td>
+                          <td>
+                            <span className={`win-rate-pill ${parseFloat(r.team_a_win_rate) >= 50 ? "high" : ""}`}>
+                              {rateText(r.team_a_win_rate)}
+                            </span>
+                          </td>
+                          <td>
+                            <span className={`win-rate-pill ${parseFloat(r.team_b_win_rate) >= 50 ? "high" : ""}`}>
+                              {rateText(r.team_b_win_rate)}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+          </section>
+
+          {/* Rule note callout */}
           <div className="rule-note">
             <strong>Rule note:</strong> Win rate = Wins ÷ (Wins + Losses) × 100. Draws are shown separately and left out of the rate; cancelled matches are excluded everywhere. Calls ✓/✗ = successful/failed calls. Double and Redouble show successful/total.
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

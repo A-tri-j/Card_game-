@@ -17,15 +17,15 @@ export default function Leaderboard() {
     <>
       <PageHeader eyebrow="RANKINGS" title="Leaderboard" />
       <p className="muted-note" style={{ marginBottom: 14 }}>
-        Call Bridge · sort: 1st count, tarpor 2nd, 3rd, tarpor total score
+        Call Bridge · Sorted by: 1st place count, then 2nd, 3rd, then total score
       </p>
 
       {error && <p className="error-text">{error}</p>}
       {!rows && !error && <div className="skeleton tall" />}
       {rows && rows.length === 0 && (
         <section className="panel placeholder-panel">
-          <h2>Ekhono kono data nei</h2>
-          <p>Match import ba finish korle ranking ekhane ashbe.</p>
+          <h2>No rankings yet</h2>
+          <p>Player rankings will appear here once matches are completed or imported.</p>
         </section>
       )}
 

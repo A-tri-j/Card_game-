@@ -401,12 +401,12 @@ export default function T29Match() {
               <p className="muted-note" style={{ margin: "10px 0 14px" }}>
                 {preview ? (
                   <>
-                    {opposingTeam} tulbe <b>{preview.opponentPoints}</b> ·{" "}
+                    {opposingTeam}: <b>{preview.opponentPoints} pts</b> ·{" "}
                     {openSet.calling_team}: <b>{signed(preview.caller)}</b> ·{" "}
                     {opposingTeam}: <b>{signed(preview.opponent)}</b>
                   </>
                 ) : (
-                  <>Caller team-er point dao. Opponent = 29 − caller. Ekhon multiplier: ×{mult}</>
+                  <>Enter points won by caller. Opponent = 29 − caller. Current multiplier: ×{mult}</>
                 )}
               </p>
               <button className="primary-button" disabled={busy !== ""} onClick={submitResult}>

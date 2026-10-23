@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Clock3, Gamepad2, Home, Moon, Sun, Trophy } from "lucide-react";
+import { BookOpen, Clock3, Gamepad2, Home, Moon, Sun, Trophy } from "lucide-react";
 import { api } from "../services/api";
 import { useTheme } from "../context/ThemeContext";
 
 const navigation = [
-  { to: "/", label: "Home", icon: Home, end: true },
+  { to: "/home", label: "Home", icon: Home, end: true },
   { to: "/games", label: "Games", icon: Gamepad2 },
   { to: "/leaderboard", label: "Leaderboard", icon: Trophy },
   { to: "/matches", label: "Match history", icon: Clock3 },
+];
+
+const mobileNavItems = [
+  { to: "/home", label: "Home", icon: Home, end: true },
+  { to: "/games", label: "Games", icon: Gamepad2 },
+  { to: "/rules/call-bridge", label: "Rules", icon: BookOpen },
+  { to: "/leaderboard", label: "Leaderboard", icon: Trophy },
+  { to: "/matches", label: "History", icon: Clock3 },
 ];
 
 function CardlyLogo() {
@@ -83,6 +91,35 @@ export default function Layout() {
           ))}
         </nav>
 
+        {/* Game Rules Card with Sub-boxes for Call Bridge & 29 */}
+        <div className="sidebar-rules-section">
+          <p className="nav-label">GAME RULES</p>
+          <div className="sidebar-rules-card">
+            <div className="sidebar-rules-header">
+              <BookOpen size={13} />
+              <span>OFFICIAL RULES</span>
+            </div>
+            <NavLink
+              to="/rules/call-bridge"
+              className={({ isActive }) =>
+                `sidebar-sub-item ${
+                  isActive || location.pathname === "/rules" ? "active" : ""
+                }`
+              }
+            >
+              <span className="sidebar-sub-badge" style={{ color: "#a78bfa" }}>♠</span>
+              <span>Call Bridge</span>
+            </NavLink>
+            <NavLink
+              to="/rules/29"
+              className={({ isActive }) => `sidebar-sub-item ${isActive ? "active" : ""}`}
+            >
+              <span className="sidebar-sub-badge" style={{ color: "var(--badge-green-text)" }}>🏆</span>
+              <span>29 (Twenty-Nine)</span>
+            </NavLink>
+          </div>
+        </div>
+
         <div className="sidebar-bottom">
           <button
             type="button"
@@ -128,10 +165,14 @@ export default function Layout() {
         </footer>
       </main>
 
-      {/* Mobile Bottom Navigation Bar (Shown in mockup!) */}
+      {/* Mobile Bottom Navigation Bar */}
       <nav className="mobile-bottom-bar" aria-label="Mobile Navigation">
-        {navigation.map(({ to, label, icon: Icon, end }) => {
-          const isActive = end ? location.pathname === to : location.pathname.startsWith(to);
+        {mobileNavItems.map(({ to, label, icon: Icon, end }) => {
+          const isActive = end
+            ? location.pathname === to
+            : to.startsWith("/rules")
+              ? location.pathname.startsWith("/rules")
+              : location.pathname.startsWith(to);
           return (
             <NavLink
               key={to}
@@ -140,7 +181,7 @@ export default function Layout() {
               className={`mobile-nav-tab ${isActive ? "active" : ""}`}
             >
               <Icon size={20} className="tab-icon" />
-              <span className="tab-label">{label === "Match history" ? "History" : label}</span>
+              <span className="tab-label">{label}</span>
             </NavLink>
           );
         })}

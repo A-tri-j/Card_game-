@@ -1,6 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Activity, ChevronRight, Frown, Gamepad2, Plus, Trophy, User, Users, Clock } from "lucide-react";
+import {
+  Activity,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  Clock,
+  Frown,
+  Gamepad2,
+  Plus,
+  Trophy,
+  User,
+  Users,
+} from "lucide-react";
 import PageHeader from "../components/PageHeader";
 import MatchRow from "../components/MatchRow";
 import { api } from "../services/api";
@@ -14,6 +26,90 @@ function loadPlayer() {
   } catch {
     return getCreator();
   }
+}
+
+// Custom Luxury Player Dropdown
+function PlayerPicker({ value, options = [], onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="player-picker-container" ref={ref}>
+      <button
+        type="button"
+        className={`player-picker-pill ${open ? "is-open" : ""}`}
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+      >
+        <div className="picker-avatar">
+          {value ? value.charAt(0).toUpperCase() : <User size={13} />}
+        </div>
+        <span className="picker-name">{value || "Choose player"}</span>
+        <ChevronDown size={14} className={`picker-chevron-icon ${open ? "rotated" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="player-dropdown-menu" role="listbox">
+          <button
+            type="button"
+            className={`dropdown-item ${!value ? "selected" : ""}`}
+            onClick={() => {
+              onChange("");
+              setOpen(false);
+            }}
+          >
+            <div className="item-avatar all-avatar">
+              <Users size={12} />
+            </div>
+            <span className="item-label">All players (Overview)</span>
+            {!value && <Check size={14} className="check-icon" />}
+          </button>
+
+          {options.length > 0 && <div className="dropdown-divider" />}
+
+          {options.map((name, idx) => {
+            const isSelected = value === name;
+            const color = AVATAR_COLORS[idx % AVATAR_COLORS.length];
+            return (
+              <button
+                key={name}
+                type="button"
+                className={`dropdown-item ${isSelected ? "selected" : ""}`}
+                onClick={() => {
+                  onChange(name);
+                  setOpen(false);
+                }}
+              >
+                <div
+                  className="item-avatar"
+                  style={{
+                    background: color.bg,
+                    borderColor: color.border,
+                    color: color.text,
+                  }}
+                >
+                  {name.charAt(0).toUpperCase()}
+                </div>
+                <span className="item-label">{name}</span>
+                {isSelected && <Check size={14} className="check-icon" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
 
 // Laurel Wreath + Crown Vector Emblem matching user mockup
@@ -87,27 +183,12 @@ export default function Home() {
 
   return (
     <>
-      {/* Header section with player select pill */}
       <PageHeader eyebrow="YOUR GAME SPACE" title="Home">
-        <div className="player-picker-pill">
-          <div className="picker-avatar">
-            <User size={15} />
-          </div>
-          <select
-            className="player-select-native"
-            value={player}
-            onChange={(e) => choosePlayer(e.target.value)}
-            aria-label="Select active player"
-          >
-            <option value="">Choose player</option>
-            {data?.player_names?.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-          <span className="picker-chevron">▼</span>
-        </div>
+        <PlayerPicker
+          value={player}
+          options={data?.player_names || []}
+          onChange={choosePlayer}
+        />
       </PageHeader>
 
       {/* Game Switcher Tabs */}
@@ -159,7 +240,7 @@ export default function Home() {
               <strong className="kpi-value">
                 {hasPlayer ? (p?.first ?? 0) : "—"}
               </strong>
-              <small className="kpi-sub">Kotobar 1st</small>
+              <small className="kpi-sub">1st place count</small>
             </article>
 
             <article className="kpi-card">
@@ -173,7 +254,7 @@ export default function Home() {
               <strong className="kpi-value">
                 {hasPlayer ? (p?.loser ?? 0) : "—"}
               </strong>
-              <small className="kpi-sub">Kotobar sobcheye pichonte</small>
+              <small className="kpi-sub">Last place count</small>
             </article>
 
             <article className="kpi-card">
