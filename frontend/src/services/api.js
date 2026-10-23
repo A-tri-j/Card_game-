@@ -1,4 +1,5 @@
-const API = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+const rawApi = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+const API = String(rawApi).trim().replace(/\/+$/, "");
 
 async function request(path, { method = "GET", body, token } = {}) {
   const headers = {};
@@ -31,6 +32,7 @@ async function request(path, { method = "GET", body, token } = {}) {
 
 export const api = {
   health: () => request("/health"),
+  ping: () => request("/ping").catch(() => request("/health")),
   searchPlayers: (q) => request(`/api/players?search=${encodeURIComponent(q)}`),
   listMatches: (query = "") => request(`/api/matches${query}`),
   getMatch: (id) => request(`/api/matches/${id}`),

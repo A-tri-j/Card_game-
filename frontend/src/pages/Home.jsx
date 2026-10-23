@@ -224,7 +224,7 @@ export default function Home() {
               </div>
               <span className="kpi-label">TOTAL MATCHES</span>
               <strong className="kpi-value">
-                {hasPlayer ? (p?.matches ?? 0) : data.total_matches}
+                {hasPlayer ? (p?.matches ?? 0) : (data?.total_matches ?? 0)}
               </strong>
               <small className="kpi-sub">Completed matches</small>
             </Link>
@@ -326,7 +326,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              {data.top.length === 0 ? (
+              {(data?.top || []).length === 0 ? (
                 <div className="empty-state">
                   <strong>No completed matches yet</strong>
                   <p>Finish a match to view real rankings.</p>
@@ -339,7 +339,7 @@ export default function Home() {
                     <span className="th-matches">Matches</span>
                   </div>
                   <div className="mini-table-body">
-                    {data.top.map((s, idx) => {
+                    {(data?.top || []).map((s, idx) => {
                       const avatar = AVATAR_COLORS[idx % AVATAR_COLORS.length];
                       return (
                         <div key={s.player_id} className="mini-table-row">

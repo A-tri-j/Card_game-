@@ -9,7 +9,7 @@ export default function Leaderboard() {
   useEffect(() => {
     api
       .leaderboard("call_bridge")
-      .then((d) => setRows(d.players))
+      .then((d) => setRows(d?.players || []))
       .catch((e) => setError(e.message));
   }, []);
 

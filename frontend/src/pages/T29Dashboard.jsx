@@ -115,7 +115,7 @@ export default function T29Dashboard() {
       .catch((e) => setError(e.message));
   }, []);
 
-  const s = data?.summary;
+  const s = data?.summary || {};
   const best = (b) => (b ? `${b.name}` : "—");
   const bestNote = (b) =>
     b ? `${rateText(b.win_rate)} · ${b.wins}/${b.matches} matches` : "Needs a decided match";
@@ -146,52 +146,52 @@ export default function T29Dashboard() {
               icon={Gamepad2}
               badgeColor="purple"
               label="TOTAL MATCHES"
-              value={s.total_matches}
-              note={`${s.in_progress_matches} in progress`}
+              value={s?.total_matches ?? 0}
+              note={`${s?.in_progress_matches ?? 0} in progress`}
             />
             <T29KpiCard
               icon={CheckCircle2}
               badgeColor="green"
               label="COMPLETED"
-              value={s.completed_matches}
-              note={`incl. ${s.drawn_matches} draws`}
+              value={s?.completed_matches ?? 0}
+              note={`incl. ${s?.drawn_matches ?? 0} draws`}
             />
             <T29KpiCard
               icon={Ban}
               badgeColor="red"
               label="CANCELLED"
-              value={s.cancelled_matches}
+              value={s?.cancelled_matches ?? 0}
               note="Excluded from rates"
             />
             <T29KpiCard
               icon={Layers}
               badgeColor="blue"
               label="SETS PLAYED"
-              value={s.total_sets}
+              value={s?.total_sets ?? 0}
               note="All completed sets"
             />
             <T29KpiCard
               icon={Award}
               badgeColor="purple"
               label="PLAYER WINS"
-              value={s.total_player_wins}
+              value={s?.total_player_wins ?? 0}
               note="Total player victories"
             />
             <T29KpiCard
               icon={Crown}
               badgeColor="gold"
               label="BEST PLAYER"
-              value={best(s.best_player)}
-              note={bestNote(s.best_player)}
-              highlight={Boolean(s.best_player)}
+              value={best(s?.best_player)}
+              note={bestNote(s?.best_player)}
+              highlight={Boolean(s?.best_player)}
             />
             <T29KpiCard
               icon={Users}
               badgeColor="gold"
               label="BEST TEAM"
-              value={best(s.best_team)}
-              note={bestNote(s.best_team)}
-              highlight={Boolean(s.best_team)}
+              value={best(s?.best_team)}
+              note={bestNote(s?.best_team)}
+              highlight={Boolean(s?.best_team)}
             />
           </section>
 
@@ -266,10 +266,10 @@ export default function T29Dashboard() {
               </div>
             </div>
 
-            {tab === "players" && <StatsTable rows={data.players} nameLabel="Player" />}
-            {tab === "teams" && <StatsTable rows={data.teams} nameLabel="Team" />}
+            {tab === "players" && <StatsTable rows={data?.players || []} nameLabel="Player" />}
+            {tab === "teams" && <StatsTable rows={data?.teams || []} nameLabel="Team" />}
             {tab === "h2h" &&
-              (data.h2h.length === 0 ? (
+              ((data?.h2h || []).length === 0 ? (
                 <div className="empty-state">
                   <div className="empty-state-graphic">♠ ♦</div>
                   <strong>No head-to-head records yet</strong>

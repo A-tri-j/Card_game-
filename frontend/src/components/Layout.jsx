@@ -39,14 +39,35 @@ export default function Layout() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
+  // Render Sleep-Prevention & Auto-Warmup Hook:
+  // If Render is sleeping, auto-retries every 5 seconds until awake.
+  // Once online, sends a background heartbeat ping every 4 minutes to keep Render alive.
   useEffect(() => {
     let cancelled = false;
-    api
-      .health()
-      .then(() => !cancelled && setApiStatus("online"))
-      .catch(() => !cancelled && setApiStatus("offline"));
+    let timer = null;
+
+    const pingServer = async () => {
+      try {
+        await api.ping();
+        if (!cancelled) {
+          setApiStatus("online");
+          // Server is awake, schedule keep-alive heartbeat in 4 minutes (240s)
+          timer = setTimeout(pingServer, 240000);
+        }
+      } catch {
+        if (!cancelled) {
+          setApiStatus("waking");
+          // Server is sleeping/spinning up, auto-retry every 5 seconds
+          timer = setTimeout(pingServer, 5000);
+        }
+      }
+    };
+
+    pingServer();
+
     return () => {
       cancelled = true;
+      if (timer) clearTimeout(timer);
     };
   }, []);
 
@@ -141,9 +162,11 @@ export default function Layout() {
               <span className="status-dot" />
               {apiStatus === "checking"
                 ? "Connecting..."
-                : apiStatus === "online"
-                  ? "API connected"
-                  : "API offline"}
+                : apiStatus === "waking"
+                  ? "Waking server..."
+                  : apiStatus === "online"
+                    ? "API connected"
+                    : "API offline"}
             </span>
           </div>
 

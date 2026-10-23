@@ -59,8 +59,11 @@ export default function Landing() {
     fairPlay: "100%",
   });
 
-  // Fetch real statistics from database
+  // Fetch real statistics & warm up Render backend if sleeping
   useEffect(() => {
+    // Immediate ping to wake Render from sleep mode
+    api.ping().catch(() => {});
+
     api
       .dashboard("call_bridge")
       .then((d) => {

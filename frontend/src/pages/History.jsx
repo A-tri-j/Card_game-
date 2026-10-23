@@ -27,13 +27,13 @@ export default function History() {
       const query = `?limit=100${status ? `&status=${status}` : ""}`;
       api
         .listMatches(query)
-        .then(setMatches)
+        .then((m) => setMatches(m || []))
         .catch((e) => setError(e.message));
     } else {
       const query = status ? `?status=${status}` : "";
       api.t29
         .history(query)
-        .then(setMatches)
+        .then((m) => setMatches(m || []))
         .catch((e) => setError(e.message));
     }
   }, [activeGame, status]);
