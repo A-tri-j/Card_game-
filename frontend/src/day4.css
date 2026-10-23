@@ -1,13 +1,15 @@
 .player-select {
   min-width: 190px;
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: 9999px;
   color: var(--text);
-  background: #0c0e16;
+  background: var(--bg-card);
   font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
-.player-select:focus { outline: none; border-color: var(--purple); }
+.player-select:focus { outline: none; border-color: var(--border-gold); box-shadow: 0 0 0 2px var(--gold-bg); }
 
 .stat-icon.red { color: #fda4af; background: #2a1620; }
 
